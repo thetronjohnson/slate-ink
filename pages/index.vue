@@ -235,28 +235,6 @@
       </div>
     </section>
 
-    <div class="container mx-auto px-4 py-8">
-      <h1 class="text-4xl font-bold mb-8 text-white">My Blog</h1>
-      
-      <div class="grid gap-6">
-        <ContentList path="/blog" v-slot="data">
-          <div v-if="data?.list?.length">
-            <article v-for="post in data.list" :key="post._path" class="p-6 bg-gray-800 rounded-lg shadow">
-              <NuxtLink :to="post._path" class="block">
-                <h2 class="text-2xl font-semibold mb-2 text-white">{{ post.title }}</h2>
-                <p class="text-gray-400 mb-4">{{ post.description }}</p>
-                <div class="text-sm text-gray-500">
-                  {{ new Date(post.date).toLocaleDateString() }}
-                </div>
-              </NuxtLink>
-            </article>
-          </div>
-          <div v-else class="text-center py-8">
-            <p class="text-gray-400">No blog posts found.</p>
-          </div>
-        </ContentList>
-      </div>
-    </div>
   </div>
 </template>
 
