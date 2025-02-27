@@ -121,7 +121,7 @@
                 loop
                 preload="metadata"
               >
-                <source src="/slate.mp4" type="video/mp4">
+                <source src="/demo.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
             </div>
