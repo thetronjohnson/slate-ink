@@ -251,6 +251,23 @@ useHead({
   @apply rounded-xl my-8;
 }
 
+/* Add table styles */
+.prose-content table {
+  @apply w-full my-8 border-collapse;
+}
+
+.prose-content th {
+  @apply bg-gray-800/50 text-white font-semibold px-4 py-3 text-left border border-gray-700/30;
+}
+
+.prose-content td {
+  @apply px-4 py-3 border border-gray-700/30 text-gray-300;
+}
+
+.prose-content tr {
+  @apply hover:bg-gray-800/30 transition-colors;
+}
+
 /* Add smooth transitions */
 .prose-content * {
   @apply transition-colors duration-300;
