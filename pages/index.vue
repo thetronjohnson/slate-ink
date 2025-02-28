@@ -235,6 +235,8 @@
       </div>
     </section>
 
+    <!-- Add footer here -->
+    <AppFooter />
   </div>
 </template>
 

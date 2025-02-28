@@ -40,6 +40,24 @@ export default defineNuxtConfig({
           url: '/blog',
           changefreq: 'daily',
           priority: 0.8
+        },
+        {
+          url: '/privacy-policy',
+          changefreq: 'monthly',
+          priority: 0.5,
+          lastmod: new Date('2024-02-28').toISOString()
+        },
+        {
+          url: '/terms-and-conditions',
+          changefreq: 'monthly',
+          priority: 0.5,
+          lastmod: new Date('2024-02-28').toISOString()
+        },
+        {
+          url: '/refund-policy',
+          changefreq: 'monthly',
+          priority: 0.5,
+          lastmod: new Date('2024-02-28').toISOString()
         }
       ]
 

@@ -27,7 +27,7 @@
       </div>
     </nav>
 
-    <!-- Blog Content -->
+    <!-- Privacy Policy Content -->
     <div class="max-w-3xl mx-auto px-4 sm:px-8 pt-32 sm:pt-40 pb-20">
       <ContentDoc v-slot="{ doc }">
         <article class="p-8 sm:p-12 rounded-3xl bg-transparent transition-all duration-500">
@@ -39,7 +39,7 @@
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
               </svg>
-              Back to all posts
+              Back to home
             </NuxtLink>
           </nav>
           
@@ -57,12 +57,6 @@
                 month: 'long', 
                 day: 'numeric' 
               }) }}
-            </span>
-            <span v-if="doc.readingTime" class="flex items-center">
-              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-              </svg>
-              {{ doc.readingTime }} min read
             </span>
           </div>
 
@@ -105,98 +99,38 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router'
 import { useRuntimeConfig } from 'nuxt/app'
+import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 
 const route = useRoute()
 const config = useRuntimeConfig()
 
 // Get doc reference from ContentDoc
-const { data: doc } = await useAsyncData('doc', () => queryContent(route.path).findOne())
+const { data: doc } = await useAsyncData('privacy', () => queryContent('/privacy').findOne())
 
 useHead({
-  link: [
-    {
-      rel: 'icon',
-      type: 'image/png',
-      href: '/logo.png'
-    },
-    { 
-      rel: 'canonical', 
-      href: computed(() => `${config.public.siteUrl}${route.path}`)
-    }
-  ],
-  htmlAttrs: {
-    lang: 'en'
-  },
+  title: computed(() => `${doc.value?.title || 'Privacy Policy'} - Slate`),
   meta: [
-    // Existing meta tags
     {
-      property: 'og:image',
-      content: '/og-image.png'
+      name: 'description',
+      content: computed(() => doc.value?.description || 'Privacy Policy for Slate - Learn how we collect, use, and protect your personal information.')
     },
-    {
-      name: 'twitter:image',
-      content: '/og-image.png'
-    },
-    {
-      name: 'twitter:card',
-      content: 'summary_large_image'
-    },
-    // New meta tags
     {
       property: 'og:title',
-      content: computed(() => doc.value?.title || 'Slate Blog')
+      content: computed(() => `${doc.value?.title || 'Privacy Policy'} - Slate`)
     },
     {
       property: 'og:description',
-      content: computed(() => doc.value?.description || 'Personal blog and thoughts')
+      content: computed(() => doc.value?.description || 'Privacy Policy for Slate - Learn how we collect, use, and protect your personal information.')
     },
     {
       property: 'og:url',
-      content: computed(() => `${config.public.siteUrl}${route.path}`)
+      content: `${config.public.siteUrl}/privacy`
     },
     {
-      name: 'twitter:title',
-      content: computed(() => doc.value?.title || 'Slate Blog')
-    },
-    {
-      name: 'twitter:description',
-      content: computed(() => doc.value?.description || 'Personal blog and thoughts')
-    },
-    { name: 'robots', content: 'index, follow' },
-    { name: 'author', content: computed(() => doc.value?.author || 'Kiran Johns') },
-    { name: 'article:published_time', content: computed(() => doc.value?.date) },
-    {
-      script: [
-        {
-          type: 'application/ld+json',
-          children: computed(() => JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BlogPosting',
-            'headline': doc.value?.title,
-            'description': doc.value?.description,
-            'datePublished': doc.value?.date,
-            'author': {
-              '@type': 'Person',
-              'name': doc.value?.author || 'Kiran Johns'
-            },
-            'publisher': {
-              '@type': 'Organization',
-              'name': 'Slate',
-              'logo': {
-                '@type': 'ImageObject',
-                'url': `${config.public.siteUrl}/logo.png`
-              }
-            },
-            'mainEntityOfPage': {
-              '@type': 'WebPage',
-              '@id': `${config.public.siteUrl}${route.path}`
-            }
-          }))
-        }
-      ]
+      name: 'robots',
+      content: 'index, follow'
     }
   ]
 })
@@ -255,19 +189,4 @@ useHead({
 .prose-content * {
   @apply transition-colors duration-300;
 }
-
-/* Paper-like styling */
-.paper-texture {
-  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h100v100H0z' fill='%23ffffff' fill-opacity='0.02'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-}
-
-.paper-shadow {
-  box-shadow: 
-    0 2px 4px -1px rgba(0, 0, 0, 0.1),
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 20px 40px -10px rgba(0, 0, 0, 0.2),
-    0 0 40px 0 rgba(99, 102, 241, 0.1);
-}
-</style> 
+</style>
