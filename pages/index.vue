@@ -9,7 +9,7 @@
         </a>
         <div class="flex items-center gap-4 sm:gap-8">
           <div class="flex items-center gap-4 sm:gap-6">
-            <a href="https://blog.slate.ink" class="text-gray-400 hover:text-indigo-400 font-medium">
+            <a href="/blog" class="text-gray-400 hover:text-indigo-400 font-medium">
               Blog
             </a>
             <a href="https://linkedin.com/in/kiranjohns" class="text-gray-400 hover:text-indigo-400" target="_blank" rel="noopener noreferrer">
@@ -363,7 +363,30 @@ useHead({
     { name: 'twitter:title', content: 'Slate - Modern WYSIWYG Markdown Editor' },
     { name: 'twitter:description', content: 'A powerful WYSIWYG markdown editor that works with your local files. Choose any folder, create markdown files, and start writing with live preview.' },
     { name: 'twitter:image', content: '/og-image.png' },
-    { name: 'twitter:image:alt', content: 'Slate markdown editor interface' }
+    { name: 'twitter:image:alt', content: 'Slate markdown editor interface' },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'author', content: 'Kiran Johns' },
+    { name: 'description', content: 'Slate is a modern WYSIWYG markdown editor for developers and technical writers. Create, edit and organize markdown files with real-time preview, distraction-free mode, and local file support.' },
+    {
+      script: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            'name': 'Slate',
+            'description': 'Modern WYSIWYG markdown editor',
+            'operatingSystem': 'Cross-platform',
+            'applicationCategory': 'Text Editor',
+            'offers': {
+              '@type': 'Offer',
+              'price': '0',
+              'priceCurrency': 'USD'
+            }
+          })
+        }
+      ]
+    }
   ],
   link: [
     { rel: 'canonical', href: 'https://slate.ink' },
@@ -390,12 +413,6 @@ const base = airtable.base(runtimeConfig.public.airtableBaseId)
 // Add new ref for waitlist count
 const waitlistCount = ref(0)
 
-// Add console.log to debug configuration
-console.log('Airtable Config:', {
-  apiKey: runtimeConfig.public.airtableApiKey,
-  baseId: runtimeConfig.public.airtableBaseId,
-  tableName: runtimeConfig.public.airtableTableName
-})
 
 // Modify fetchWaitlistCount to include better error handling
 const fetchWaitlistCount = async () => {
